@@ -1,5 +1,10 @@
 FROM ubuntu:18.04 as builder
 
+LABEL maintainer="aka.achu.1612@gmail.com"
+LABEL name="imgclub/redis"
+LABEL vcs-url="https://github.com/aka-achu/imgclub"
+LABEL version=$6.0.5
+
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends \
         wget \
