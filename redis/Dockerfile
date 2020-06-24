@@ -1,9 +1,12 @@
-FROM ubuntu:18.04 as builder
+FROM ubuntu:20.04 as builder
 
 LABEL maintainer="aka.achu.1612@gmail.com"
 LABEL name="imgclub/redis"
 LABEL vcs-url="https://github.com/aka-achu/imgclub"
 LABEL version=$6.0.5
+
+ENV REDIS_VERSION 6.0.5
+ENV REDIS_DOWNLOAD_URL http://download.redis.io/releases/redis-6.0.5.tar.gz
 
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends \
@@ -12,22 +15,23 @@ RUN apt-get install -y --no-install-recommends \
         gcc \
         libc6-dev
 
-RUN wget http://download.redis.io/redis-stable.tar.gz; \
+RUN wget -O redis.tar.gz "$REDIS_DOWNLOAD_URL"; \
         mkdir -p /usr/src/redis; \
-        tar -xzf redis-stable.tar.gz -C /usr/src/redis --strip-components=1; \
+        tar -xzf redis.tar.gz -C /usr/src/redis --strip-components=1; \
         rm redis-stable.tar.gz; \
         make -C /usr/src/redis -j "$(nproc)" all; \
         make -C /usr/src/redis  install
 
 
 
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 COPY --from=builder /usr/local/bin/redis-server /usr/local/bin/
 
+RUN mkdir /data /etc/redis
+VOLUME [ "/data" ]
 EXPOSE 6379
 WORKDIR /data
-COPY redis.conf ./redis.conf
+COPY redis.conf /etc/redis/redis.conf
 
-
-CMD ["redis-server", "/data/redis.conf"]
+CMD ["redis-server", "/etc/redis/redis.conf"]
