@@ -4,7 +4,7 @@ LABEL maintainer="aka.achu.1612@gmail.com"
 LABEL name="docker.pkg.github.com/aka-achu/docker/redis"
 
 ENV REDIS_VERSION 6.0.6
-ENV REDIS_DOWNLOAD_URL http://download.redis.io/releases/redis-$(REDIS_VERSION).tar.gz
+ENV REDIS_DOWNLOAD_URL http://download.redis.io/releases/redis-6.0.6.tar.gz
 
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends \
