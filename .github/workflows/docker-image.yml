@@ -14,8 +14,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - run: docker login -u aka-achu -p ${{ secrets.PKG_ACCESS_TOKEN }} docker.pkg.github.com
-    - run: docker build ./redis/ --tag  docker.pkg.github.com/aka-achu/docker/redis:6.0.6
-    - run: docker push docker.pkg.github.com/aka-achu/docker/redis:6.0.6
-    - run: docker build ./minio/ --tag  docker.pkg.github.com/aka-achu/docker/minio:latest
-    - run: docker push docker.pkg.github.com/aka-achu/docker/minio:latest
+    - run: docker login -u akaachu -p ${{ secrets.HUB_ACCESS_TOKEN }}
+    - run: docker build ./redis/ --tag  runq/redis:6.0.6
+    - run: docker push runq/redis:6.0.6
+    - run: docker build ./minio/ --tag  runq/minio:latest
+    - run: docker push runq/minio:latest
