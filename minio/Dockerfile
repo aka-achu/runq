@@ -1,5 +1,8 @@
 FROM golang:latest as builder
 
+LABEL maintainer="aka.achu.1612@gmail.com"
+LABEL name="runq/redis"
+
 ENV CGO_ENABLED 0
 ENV GO111MODULE on
 
