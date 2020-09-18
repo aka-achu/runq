@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: docker login -u akaachu -p ${{ secrets.HUB_ACCESS_TOKEN }}
-    - run: docker build ./redis/ --tag  runq/redis:6.0.6
-    - run: docker push runq/redis:6.0.6
+    - run: docker build ./redis/ --tag  runq/redis:6.0.8
+    - run: docker push runq/redis:6.0.8
     - run: docker build ./minio/ --tag  runq/minio:latest
     - run: docker push runq/minio:latest
