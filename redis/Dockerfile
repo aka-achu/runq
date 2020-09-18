@@ -12,13 +12,15 @@ RUN apt-get install -y --no-install-recommends \
         make \
         gcc \
         libc6-dev \
-        libssl-dev
+        libssl-dev \
+        tcl
 
 RUN wget -O redis.tar.gz "$REDIS_DOWNLOAD_URL" --no-check-certificate; \
         mkdir -p /usr/src/redis; \
         tar -xzf redis.tar.gz -C /usr/src/redis --strip-components=1; \
         rm redis-stable.tar.gz; \
         make BUILD_TLS=yes -C /usr/src/redis -j "$(nproc)" all; \
+        make test -C /usr/src/redis; \
         make -C /usr/src/redis  install
 
 
